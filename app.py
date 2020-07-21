@@ -16,7 +16,6 @@ mongo = PyMongo(app)
 
 @app.route('/add', methods=['POST'])
 def add_user():
-    _id = id
     json = request.json
     name = json['name']
     email = json['email']
@@ -24,7 +23,7 @@ def add_user():
 
     if name and email and password and request.method == 'POST':
         hashed_password = generate_password_hash(password)
-        id = mongo.db.jashwanth.update({'name': name, 'email': email, 'password': hashed_password})
+        id = mongo.db.jashwanth.insert({'name': name, 'email': email, 'password': hashed_password})
 
         resp = jsonify('user added successfully')
         resp.status_code = 200
